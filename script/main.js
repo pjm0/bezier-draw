@@ -2,7 +2,7 @@
 (()=>{
 	//import { Edit_session } from  "./edit_session.js";
 	let svg = document.getElementsByTagName('svg')[0]; //Get svg element
-	let color_select = document.getElementById('color_select');
+	//let color_select = document.getElementById('color_select');
 	let curr_color = "none";
 	let mode = 0;
 
@@ -12,12 +12,12 @@
 	let moves_since_mode_chg = 0;
 	const moves_threshold = 0;
 
-	color_select.addEventListener("onchange", (e) => {
+	/*color_select.addEventListener("onchange", (e) => {
 		curr_color = color_select.value;
 		if (latest) {
 			latest.setAttribute("style", `fill:${curr_color}`);
 		}
-	});
+	});*/
 
 	svg.addEventListener("mousedown", (e) => {
 		console.log(`mousedown (before) ${mode} ${moves_since_mode_chg}`);
