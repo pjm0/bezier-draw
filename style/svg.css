@@ -1,0 +1,12 @@
+path {
+	stroke: black;
+	stroke-width : 0.5px;
+	/*fill: none;*/
+	/*  stroke-dasharray: 4px;
+  stroke-dashoffset: 8px;
+  animation: stroke-dashoffset 20s linear ;*/
+}
+
+.hilite {
+	stroke: blue;
+}
