@@ -2,7 +2,7 @@ let api = (()=>{
 	//import Math;
 	let fns = {};
 	let next_ID = 0;
-	const grid_size = 50;
+	const grid_size = 10;
 
 	fns.add_path = (svg) => {
 		let path = document.createElementNS("http://www.w3.org/2000/svg", 'path');

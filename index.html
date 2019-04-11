@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-	<link rel="stylesheet" href="./style/svg.css">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="./style/style.css"> 
+<!--   <link rel="stylesheet" href="./style/outlines.css"> -->
+
 </head>
 <body>
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"></svg>
-	<!--div>
-		Fill
-	<select id="color_select">
-  <option value="none">none</option>
-  <option value="black">black</option>
-  <option value="white">white</option>
-  <option value="red">red</option>
-  <option value="orange">orange</option>
-  <option value="yellow">yellow</option>
-  <option value="green">green</option>
-  <option value="blue">blue</option>
-  <option value="purple">purple</option>
-</select>
-</div-->
-	<script src="./script/api.js"></script>
-  <script src="./script/main.js"></script>
+  <div class="sessions">
+    <div class="edit_session">
+      <div class="toolbar">
+        <button class="crosshair selected">✏</button>
+        <button class="clear">🤚</button>
+        <button class="clear">💣</button>
+      </div>
+      <div class="viewbox">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-250 -250 750 750"></svg>
+      </div>
+    </div>
+    <div class="column toolbar">
+      <button class="l_arrow">←</button>
+      <button class="r_arrow">→</button>
+    </div>
+    <div class="edit_session">
+      <div class="toolbar">
+        <button class="crosshair selected">✏</button>
+        <button class="clear">🤚</button>
+        <button class="clear">💣</button>
 
+      </div>
+      <div class="viewbox">
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="-250 -250 750 750"></svg> -->
+      </div>
+    </div>
+    
+  </div>
+    <script src="./script/api.js"></script> 
+    <script src="./script/main.js"></script>
 </body></html>

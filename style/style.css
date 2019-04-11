@@ -1,0 +1,89 @@
+body {
+	background-color: #F1DEDE;
+}
+
+div {
+	border-radius: 10px;
+	padding: 1px;
+	margin: 1px;
+}
+
+svg {
+	background-color: LightGrey;
+	width: 90%;
+	height: 90%;
+/*	margin: 5%;
+*/}
+
+.sessions {
+	display:flex;
+	flex-direction: row;
+	align-content: stretch;
+	justify-content: center;
+}
+
+.toolbar {
+	background-color: #80727B;
+	border-bottom-left-radius:0;
+	border-bottom-right-radius:0;
+	margin:0px;
+	padding:0px;
+}
+
+.column {
+	background-color: #F1DEDE;
+	display:flex;
+	justify-content: center;
+	flex-direction: column;
+	flex-basis: content;
+}
+
+.toolbar button {
+	border-radius: 10px;
+	font-size: 3vw;
+	width: 6vw;
+	height: 6vw;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin:0.5vh;
+}
+
+button .selected {
+
+}
+
+.viewbox {
+	display: flex;
+			align-content: center;
+	justify-content: center;
+		background-color: #BBACC1;
+		margin-top: 0px;
+			border-top-left-radius:0;
+	border-top-right-radius:0;
+	height:35vw;
+}
+
+.clear {
+	align-self: right;
+}
+
+.edit_session {
+	width: 40vw;
+	height: 40vw;
+	/*flex-grow: 2;*/
+	/*margin: auto;*/
+	/*min-width: 100%;*/
+	/*height: 100%;*/
+}
+
+
+
+
+	path {
+		stroke: black;
+		stroke-width : 2px;
+		/*fill: none;*/
+	/*  stroke-dasharray: 4px;
+  stroke-dashoffset: 8px;
+  animation: stroke-dashoffset 20s linear ;*/
+}

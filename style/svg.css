@@ -1,3 +1,17 @@
+/*body, div {
+	display:flex;
+	flex-direction: column;
+	border-color: black; 
+	border-style: dashed;
+	border-width: 1px;
+	margin: 0px;
+	padding: auto;
+}
+*/
+
+/*.hilite {
+	stroke: blue;
+}*/
 path {
 	stroke: black;
 	stroke-width : 0.5px;
@@ -5,8 +19,4 @@ path {
 	/*  stroke-dasharray: 4px;
   stroke-dashoffset: 8px;
   animation: stroke-dashoffset 20s linear ;*/
-}
-
-.hilite {
-	stroke: blue;
 }
