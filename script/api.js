@@ -17,7 +17,12 @@ let api = (()=>{
 	};
 
 	fns.get_img_names = () => {
-		return Object.keys(fns.get_img_db()).sort();
+		try {
+			return Object.keys(fns.get_img_db()).sort();
+		} catch(e) {
+			fns.set_img_db({});
+			return [];
+		}
 	};
 
 	class Image {
