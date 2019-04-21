@@ -1,5 +1,6 @@
-body {
+html, body {
 	background-color: #F1DEDE;
+	height: 100%;
 }
 
 div {
@@ -24,14 +25,16 @@ svg {
 
 .toolbar {
 	background-color: #80727B;
-	border-bottom-left-radius:0;
-	border-bottom-right-radius:0;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 	margin:0px;
 	padding:0px;
 }
 
-.column {
-	background-color: #F1DEDE;
+.toolbar.mid {
+	position: relative;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 0px;
 	display:flex;
 	justify-content: center;
 	flex-direction: column;
@@ -45,15 +48,16 @@ svg {
 	height: 6vw;
 	background-position: center;
 	background-repeat: no-repeat;
-	margin:0.5vh;
+	margin:0.4vw;
 }
 
-button .selected {
-
+button .clear {
+	
 }
 
 .viewbox {
 	display: flex;
+	flex-direction: column;
 			align-content: center;
 	justify-content: center;
 		background-color: #BBACC1;
@@ -68,6 +72,7 @@ button .selected {
 }
 
 .edit_session {
+	position: relative;
 	width: 40vw;
 	height: 40vw;
 	/*flex-grow: 2;*/

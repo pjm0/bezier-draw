@@ -1,122 +1,162 @@
-	
-(()=>{
-	//import { Edit_session } from  "./edit_session.js";
-	let svg = document.getElementsByTagName('svg')[0]; //Get svg element
-	//let color_select = document.getElementById('color_select');
-	let curr_color = "none";
-	let mode = 0;
+class Edit_session {
+	constructor(svg) {
+		//console.log("constructor");
+		this.img = new api.Image();
+		this.svg = svg; 
+		//let color_select = document.getElementById('color_select');
+		this.curr_color = "none";
+		this.mode = 0;
 
-	let latest = null;
-	let points = [];
-	let path = "";
-	let moves_since_mode_chg = 0;
-	const moves_threshold = 0;
+		this.latest = null;
+		this.points = [];
+		this.path = "";
+		this.moves_since_mode_chg = 0;
+		this.grid_size = 10;
+		const moves_threshold = 0;
 
-	/*color_select.addEventListener("onchange", (e) => {
-		curr_color = color_select.value;
-		if (latest) {
-			latest.setAttribute("style", `fill:${curr_color}`);
-		}
-	});*/
 
-	svg.addEventListener("mousedown", (e) => {
-		//console.log(`mousedown (before) ${mode} ${moves_since_mode_chg}`);
-		switch(mode) {
-			case 0: // Mouse down on start point
-				points = [api.svg_mousecoords(svg, e)];
-				path = `M ${points[0].x} ${points[0].y}`;				
-				latest = api.add_path(svg);
-				mode = 1;
-				break;
 
-			case 1: // 
-				//console.log("Double-clicked on start?");
-				points.push(api.svg_mousecoords(svg, e));
-				mode = 3;
-				break;
+		this.svg.addEventListener("mousedown", (e) => {
+			//console.log(`mousedown (before) ${mode} ${moves_since_mode_chg}`);
+			switch(this.mode) {
+				case 0: // Mouse down on start point
+					this.points = [this.svg_mousecoords(e)];
+					this.path = `M ${this.points[0].x} ${this.points[0].y}`;				
+					this.latest = this.add_path(svg);
+					this.mode = 1;
+					break;
 
-			case 2:
-				points.push(api.svg_mousecoords(svg, e));
-				mode = 0;
-				break;
-			case 3:
-				//console.log("down mode 3");
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			}
-		moves_since_mode_chg = 0;
-		//console.log(`mousedown (after) ${mode} ${moves_since_mode_chg}`);
-		});
-	svg.addEventListener("mouseup", (e) => {
-		////console.log(`mouseup (before) ${mode} ${moves_since_mode_chg}`);
-		switch(mode) {
-			case 0: // No path yet
-				break;
-			case 1: // Drag to control point, next click will be curve endpoint
-				//console.log("up mode 1");
-				points.push(api.svg_mousecoords(svg, e));
-				if (moves_since_mode_chg > moves_threshold) { // Drag, next ""
-					mode = 2;
-					//console.log("drag from start?");
-				} else {
-					//mode = 3; // Double click, next click will be bezier control point
-					//console.log("clicked on start?");
+				case 1: // 
+					//console.log("Double-clicked on start?");
+					this.points.push(this.svg_mousecoords(e));
+					this.mode = 3;
+					break;
+
+				case 2:
+					this.points.push(this.svg_mousecoords(e));
+					this.mode = 0;
+					break;
+				case 3:
+					//console.log("down mode 3");
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
 				}
-				mode = 3
-				break;
-			case 2: // Mouse up after drag
-			//console.log("up mode 2");
-				points.push(api.svg_mousecoords(svg, e));
-				//mode = 1;
+			this.moves_since_mode_chg = 0;
+			//console.log(`mousedown (after) ${mode} ${moves_since_mode_chg}`);
+			});
+		this.svg.addEventListener("mouseup", (e) => {
+			////console.log(`mouseup (before) ${mode} ${moves_since_mode_chg}`);
+			switch(this.mode) {
+				case 0: // No path yet
+					break;
+				case 1: // Drag to control point, next click will be curve endpoint
+					//console.log("up mode 1");
+					this.points.push(this.svg_mousecoords(e));
+					if (this.moves_since_mode_chg > this.moves_threshold) { // Drag, next ""
+						this.mode = 2;
+						//console.log("drag from start?");
+					} else {
+						//mode = 3; // Double click, next click will be bezier control point
+						//console.log("clicked on start?");
+					}
+					this.mode = 3
+					break;
+				case 2: // Mouse up after drag
+				//console.log("up mode 2");
+					this.points.push(this.svg_mousecoords(e));
+					//mode = 1;
 
-				break;
-			case 3:
-			//console.log("up mode 3");
-				latest = null;
-				mode = 0;
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			}
-				moves_since_mode_chg = 0;
-				//console.log(`mouseup (after) ${mode} ${moves_since_mode_chg}`);
+					break;
+				case 3:
+				//console.log("up mode 3");
+					this.latest = null;
+					this.mode = 0;
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				}
+			this.moves_since_mode_chg = 0;
+					//console.log(`mouseup (after) ${mode} ${moves_since_mode_chg}`);
 		});
 
-	svg.addEventListener("mousemove", (e) => {
-		////console.log(`mousemove (before) ${mode} ${moves_since_mode_chg}`);
-		moves_since_mode_chg++;
-		let start, mid, end;
-		switch(mode) {
-			case 0: // No path yet
-				break;
+		svg.addEventListener("mousemove", (e) => {
+			////console.log(`mousemove (before) ${mode} ${moves_since_mode_chg}`);
+			this.moves_since_mode_chg++;
+			let start, mid, end;
+			switch(this.mode) {
+				case 0: // No path yet
+					break;
 
-			case 1: // Mouse down on start point
-				start = points[0];
-				mid = api.svg_mousecoords(svg, e);
-				latest.setAttribute("d", `M ${start.x} ${start.y} L ${mid.x} ${mid.y}`);
-				break;			
-			case 2:
-			case 3:
-				start = points[0];
-				mid = points[1];
-				end = api.svg_mousecoords(svg, e);
-				path = `M ${start.x} ${start.y} Q ${mid.x} ${mid.y} ${end.x} ${end.y}`;
-				latest.setAttribute("d", `${path}`);
-				latest.setAttribute("style", `fill:${curr_color}`);
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
+				case 1: // Mouse down on start point
+					start = this.points[0];
+					mid = this.svg_mousecoords(e);
+					this.latest.setAttribute("d", `M ${start.x} ${start.y} L ${mid.x} ${mid.y}`);
+					break;			
+				case 2:
+				case 3:
+					start = this.points[0];
+					mid = this.points[1];
+					end = this.svg_mousecoords(e);
+					this.path = `M ${start.x} ${start.y} Q ${mid.x} ${mid.y} ${end.x} ${end.y}`;
+					this.latest.setAttribute("d", `${this.path}`);
+					this.latest.setAttribute("style", `fill:${this.curr_color}`);
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
 
-			}
-		// //console.log(`mousemove (after) ${mode}`);
+				}
+			// //console.log(`mousemove (after) ${mode}`);
 		});
 
+
+	}
+
+	add_path() {
+		let path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+		path.setAttribute("id", (this.next_ID++).toString());
+		this.svg.appendChild(path);
+		return path;
+	}
 	
-})();
+	svg_mousecoords(e) {
+		let p = this.svg.createSVGPoint();
+		p.x = Math.round(e.clientX / this.grid_size) * this.grid_size;
+		p.y = Math.round(e.clientY / this.grid_size) * this.grid_size;
+		return p.matrixTransform(this.svg.getScreenCTM().inverse());
+	}
+}
+
+window.onload = () => {
+
+
+	function update_names() {
+		// Update list of image names
+		document.querySelectorAll(".names").forEach((field) => {
+			api.get_img_names().forEach((name) => {
+			var opt = document.createElement("option"); 
+			opt.setAttribute("value", name);
+			opt.innerHTML = name;
+			field.appendChild(opt);
+		});
+	});
+	}
+	update_names();
+
+	function clear(svg) {
+		// console.log("Hi");
+		// while (svg.lastChild) {
+		// 	svg.removeChild(svg.lastChild);
+		// }
+	};
+
+	let sessions = Array.prototype.map.call(document.querySelectorAll("svg"), (svg)=> {
+		return new Edit_session(svg);
+	});	
+};
