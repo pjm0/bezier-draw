@@ -3,7 +3,13 @@ let api = (()=>{
 	let next_ID = 0;
 
 	fns.get_img_db = () => {
-		return JSON.parse(window.localStorage.getItem("img"));
+		try {
+			return JSON.parse(window.localStorage.getItem("img"));
+		} catch(e) {
+			fns.set_img_db({});
+			return {};
+		}
+		
 	};
 
 	fns.set_img_db = (db) => {
