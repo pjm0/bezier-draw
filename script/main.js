@@ -1,8 +1,8 @@
 class Edit_session {
-	constructor(svg) {
+	constructor(session) {
 		//console.log("constructor");
 		this.img = new api.Image();
-		this.svg = svg; 
+		this.svg = session.querySelector("svg"); 
 		//let color_select = document.getElementById('color_select');
 		this.curr_color = "none";
 		this.mode = 0;
@@ -14,7 +14,12 @@ class Edit_session {
 		this.grid_size = 10;
 		const moves_threshold = 0;
 
-
+		session.querySelector(".clear").addEventListener("mousedown", (e) => {
+			this.img = new api.Image();
+			while (this.svg.lastChild) {
+		    	this.svg.removeChild(this.svg.lastChild);
+			}	
+		});
 
 		this.svg.addEventListener("mousedown", (e) => {
 			//console.log(`mousedown (before) ${mode} ${moves_since_mode_chg}`);
@@ -22,7 +27,7 @@ class Edit_session {
 				case 0: // Mouse down on start point
 					this.points = [this.svg_mousecoords(e)];
 					this.path = `M ${this.points[0].x} ${this.points[0].y}`;				
-					this.latest = this.add_path(svg);
+					this.latest = this.add_path();
 					this.mode = 1;
 					break;
 
@@ -84,7 +89,7 @@ class Edit_session {
 					//console.log(`mouseup (after) ${mode} ${moves_since_mode_chg}`);
 		});
 
-		svg.addEventListener("mousemove", (e) => {
+		this.svg.addEventListener("mousemove", (e) => {
 			////console.log(`mousemove (before) ${mode} ${moves_since_mode_chg}`);
 			this.moves_since_mode_chg++;
 			let start, mid, end;
@@ -120,7 +125,8 @@ class Edit_session {
 
 	add_path() {
 		let path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
-		path.setAttribute("id", (this.next_ID++).toString());
+		let id = this.img.add_path();
+		path.setAttribute("id", id.toString());
 		this.svg.appendChild(path);
 		return path;
 	}
@@ -140,23 +146,16 @@ window.onload = () => {
 		// Update list of image names
 		document.querySelectorAll(".names").forEach((field) => {
 			api.get_img_names().forEach((name) => {
-			var opt = document.createElement("option"); 
-			opt.setAttribute("value", name);
-			opt.innerHTML = name;
-			field.appendChild(opt);
+				var opt = document.createElement("option"); 
+				opt.setAttribute("value", name);
+				opt.innerHTML = name;
+				field.appendChild(opt);
+			});
 		});
-	});
 	}
 	update_names();
 
-	function clear(svg) {
-		// console.log("Hi");
-		// while (svg.lastChild) {
-		// 	svg.removeChild(svg.lastChild);
-		// }
-	};
-
-	let sessions = Array.prototype.map.call(document.querySelectorAll("svg"), (svg)=> {
-		return new Edit_session(svg);
+	let sessions = Array.prototype.map.call(document.querySelectorAll(".edit_session"), (session)=> {
+		return new Edit_session(session);
 	});	
 };
